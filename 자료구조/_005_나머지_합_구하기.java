@@ -1,43 +1,43 @@
 package 자료구조;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.Arrays;
-import java.util.StringTokenizer;
+import java.util.Scanner;
 
 public class _005_나머지_합_구하기 {
-    public static void main(String[] args)throws IOException {
-        /*N과 M적기*/
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
-        int N = Integer.parseInt(st.nextToken());
-        int divNum = Integer.parseInt(st.nextToken());
-        int result = 0;
-        int divNumber[] = new int[divNum];
+    public static void main(String[] args) {
 
-        /*N개만큼의 숫자 나열하기*/
-        int arr[] = Arrays.stream(br.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
-        int total = 0;
-        total = arr[0] % divNum;
-        ++divNumber[total];
+        Scanner sc = new Scanner(System.in);
 
-        for (int i = 1; i < arr.length; i++) {
-            total = (total + arr[i]) % divNum;
-            ++divNumber[total];
+        int M = sc.nextInt();
+        int N = sc.nextInt();
+
+        long arr[] = new long[N];
+        long sum[] = new long[M+1];
+
+        long num = 0;
+
+        for(int i = 1; i <= M; i++) {
+            num = sc.nextLong();
+            sum[i] = sum[i-1] + num;
         }
 
-        result += divNumber[0];
+        //구간합끼리 빼서 3의배수가 나온다는것은 숫자가 같으면 두개의 수를 빼면 3의배수가 나온다는 뜻이다.
 
-        for(int i = 0; i < divNum; ++i) {
-            result += totalNum(divNumber[i]);
+        for(int i = 1; i<= M; i++) {
+            sum[i]%=(long)N;
+            arr[(int)sum[i]]++;
         }
 
-        System.out.println(result);
+        long count = 0;
 
-    }
+        count += arr[0];
 
-    private static int totalNum(int i) {
-        if(i == 0 || i == 1) return 0;
-        return ((i - 1) * (i)) / 2;
+        for(int i = 0; i < N; i++ ) {
+            if(arr[i] == 0) continue;
+            else {
+                count += arr[i]*(arr[i]-1)/2;
+            }
+
+        }
+
+        System.out.print(count);
     }
 }
