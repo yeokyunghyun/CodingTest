@@ -12,15 +12,32 @@ public class _005_나머지_합_구하기 {
         StringTokenizer st = new StringTokenizer(br.readLine());
         int N = Integer.parseInt(st.nextToken());
         int divNum = Integer.parseInt(st.nextToken());
+        int result = 0;
+        int divNumber[] = new int[divNum];
+
         /*N개만큼의 숫자 나열하기*/
         int arr[] = Arrays.stream(br.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
-        int sum[] = new int[arr.length];
-        for (int i = 0; i < arr.length; i++) {
-            sum[i] = arr[i] + sum[i - 1];
+        int total = 0;
+        total = arr[0] % divNum;
+        ++divNumber[total];
+
+        for (int i = 1; i < arr.length; i++) {
+            total = (total + arr[i]) % divNum;
+            ++divNumber[total];
         }
 
-        for(int i = 1; i <= arr.length; ++i) {
-            
+        result += divNumber[0];
+
+        for(int i = 0; i < divNum; ++i) {
+            result += totalNum(divNumber[i]);
         }
+
+        System.out.println(result);
+
+    }
+
+    private static int totalNum(int i) {
+        if(i == 0 || i == 1) return 0;
+        return ((i - 1) * (i)) / 2;
     }
 }

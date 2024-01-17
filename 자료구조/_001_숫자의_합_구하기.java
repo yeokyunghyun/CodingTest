@@ -8,7 +8,7 @@ import java.io.InputStreamReader;
 
 // 문자(문자열말고)를 숫자로 어떻게 바꿀것인가 ?
 public class _001_숫자의_합_구하기 {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException { 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         int testcase = Integer.parseInt(br.readLine());
