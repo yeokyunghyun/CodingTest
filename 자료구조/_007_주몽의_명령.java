@@ -18,10 +18,11 @@ public class _007_주몽의_명령 {
         int left = 0;
         int right = N - 1;
         int count = 0;
-        while(left != right) {
+        while(left < right) {
             int total = stockArr[left] + stockArr[right];
             if(total == M) {
                 ++count;
+                ++left;
                 --right;
             } else if(total < M) {
                 ++left;
