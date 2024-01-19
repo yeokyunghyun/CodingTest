@@ -15,39 +15,30 @@ public class _009_DNA_비밀번호 {
         char DnaPassword[] = br.readLine().toCharArray();
 
         int DnaAlphabetCount[] = Arrays.stream(br.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
+        int alphabet[] = new int[26];
+
+        alphabet[0] = DnaAlphabetCount[0];
+        alphabet[2] = DnaAlphabetCount[1];
+        alphabet[6] = DnaAlphabetCount[2];
+        alphabet[19] = DnaAlphabetCount[3];
+
         for (int i = 0; i < passWordLength; i++) {
-            if(DnaPassword[i] == 'A') --DnaAlphabetCount[0];
-            else if(DnaPassword[i] == 'C') --DnaAlphabetCount[1];
-            else if(DnaPassword[i] == 'G') --DnaAlphabetCount[2];
-            else --DnaAlphabetCount[3];
+            --alphabet[DnaPassword[i] - 'A'];
         }
 
         int count = 0;
-        if(isValid(DnaAlphabetCount)) ++count;
+        if(isValid(alphabet)) ++count;
 
         for (int i = 0; i < DNA_Length - passWordLength; ++i) {
-            if(DnaPassword[i] == 'A') ++DnaAlphabetCount[0];
-            else if(DnaPassword[i] == 'C') ++DnaAlphabetCount[1];
-            else if(DnaPassword[i] == 'G') ++DnaAlphabetCount[2];
-            else ++DnaAlphabetCount[3];
-
-            if(DnaPassword[i + passWordLength] == 'A') --DnaAlphabetCount[0];
-            else if(DnaPassword[i + passWordLength] == 'C') --DnaAlphabetCount[1];
-            else if(DnaPassword[i + passWordLength] == 'G') --DnaAlphabetCount[2];
-            else --DnaAlphabetCount[3];
-
-            if(isValid(DnaAlphabetCount)) ++count;
+            ++alphabet[DnaPassword[i] - 'A'];
+            --alphabet[DnaPassword[i + passWordLength] - 'A'];
+            if(isValid(alphabet)) ++count;
         }
 
         System.out.println(count);
-        
     }
-
-    private static boolean isValid(int[] DnaAlphabetCount) {
-        for (int i = 0; i < DnaAlphabetCount.length; i++) {
-            if(DnaAlphabetCount[i] > 0) return false;
-        }
-
+    private static boolean isValid(int[] alphabet) {
+        if(alphabet[0] > 0 || alphabet[2] > 0 || alphabet[6] > 0 || alphabet[19] > 0) return false;
         return true;
     }
 }
