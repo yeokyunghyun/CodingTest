@@ -23,6 +23,8 @@ public class _019_K번째_수_구하기 {
     private static void pivot(int[] arr, int lo, int hi, int k) {
         if(lo >= hi) return;
 
+        int pivot = (int) (Math.random() * (hi - lo + 1)) + lo;
+        swap(arr, lo, pivot);
         int pivotNum = partition(arr, lo, hi);
 
         if(pivotNum == k) return;
@@ -35,6 +37,14 @@ public class _019_K번째_수_구하기 {
     }
 
     private static int partition(int[] arr, int lo, int hi) {
+        if(lo + 1 == hi) {
+            if(arr[lo] > arr[hi]) {
+                swap(arr, lo, hi);
+                return hi;
+            }
+            return lo;
+        }
+
         int left = lo + 1;
         int right = hi;
         int pivot = arr[lo];
