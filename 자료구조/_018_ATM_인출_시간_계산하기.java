@@ -14,7 +14,6 @@ public class _018_ATM_인출_시간_계산하기 {
 
         for (int i = 1; i < arr.length; ++i) {
             int tempIdx = 0;
-
             for (int j = i; j > 0; --j) {
                 if (arr[j - 1] <= arr[i]) {
                     tempIdx = j;
