@@ -36,6 +36,7 @@ public class _023_연결_요소의_개수_구하기 {
         /*for문으로 돌면서 dfs확인*/
         for(int i  = 1; i <= N; ++i) {
             if(!visited[i]) {
+                visited[i] = true;
                 dfs(arr, visited, i);
                 ++count;
             }
@@ -47,17 +48,10 @@ public class _023_연결_요소의_개수_구하기 {
     private static void dfs(ArrayList<Integer>[] arr, boolean[] visited, int i) {
         int startNode = i;
 
-        Stack<Integer> stack = new Stack<>();
-        stack.push(startNode);
-        visited[startNode] = true;
-
-        while(!stack.empty()) {
-            int popNode = stack.pop();
-            for(int linkedNode : arr[popNode]) {
-                if(!visited[linkedNode]) {
-                    visited[linkedNode] = true;
-                    stack.add(linkedNode);
-                }
+        for(int linkedNum : arr[i]) {
+            if(!visited[linkedNum]) {
+                visited[linkedNum] = true;
+                dfs(arr, visited, linkedNum);
             }
         }
     }
