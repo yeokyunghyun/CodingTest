@@ -45,7 +45,6 @@ public class _026_DFS와_BFS_프로그램 {
         System.out.print(num + " ");
         for(int linkedNum : arr[num]) {
             if(!visited[linkedNum]) {
-                visited[linkedNum] = true;
                 dfs(arr, visited, linkedNum);
             }
         }
