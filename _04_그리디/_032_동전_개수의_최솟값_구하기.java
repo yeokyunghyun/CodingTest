@@ -6,6 +6,9 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class _032_동전_개수의_최솟값_구하기 {
+
+    public static int totalCoin = Integer.MAX_VALUE;
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
@@ -17,22 +20,22 @@ public class _032_동전_개수의_최솟값_구하기 {
             arr[i] = Integer.parseInt(br.readLine());
         }
 
-        int totalCoin = 0;
+        dfs(arr, N - 1, total, 0);
+        System.out.println(totalCoin);
+    }
 
-        int i = N - 1;
-        while(i >= 0 && total > 0) {
-            if (total / arr[i] >= 1) {
-                int requiredCoin = (total / arr[i]);
-                totalCoin += requiredCoin;
-                int minusMoney = requiredCoin * arr[i];
-                total -= minusMoney;
-            }
-            --i;
+    private static void dfs(int arr[], int index, int total, int coinNum) {
+        if(index == -1) return;
+        if(total == 0) {
+            if(totalCoin > coinNum) totalCoin = coinNum;
         }
 
-        if(total > 0) System.out.println("불가능");
-        else {
-            System.out.println(totalCoin);
+        for(int i = index; i >= 0; --i) {
+            if(total / arr[i] >= 1) {
+                int plusCoin = total / arr[i];
+                int minusMoney = plusCoin * arr[i];
+                dfs(arr, index - 1, total - minusMoney, coinNum + plusCoin);
+            }
         }
     }
 }
